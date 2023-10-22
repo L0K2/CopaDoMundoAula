@@ -15,6 +15,15 @@ class PlayersRepository {
         $this->connection = $factory->getConnection();
     }
 
+    public function getAll(){
+        $sql = "SELECT * FROM tb_jogadores";
+
+        $table = $this->connection->query($sql);
+        $resultados = $table->fetchAll(PDO::FETCH_ASSOC);
+
+        return $resultados;
+    }
+
     public function getRandomPlayers(int $numberOfPlayers){
 
         $sql = "SELECT * FROM tb_jogadores as j INNER JOIN tb_selecoes as s ON j.selecao = s.id ORDER BY RAND() LIMIT $numberOfPlayers";
@@ -46,4 +55,27 @@ class PlayersRepository {
 
         return $table->fetch(PDO::FETCH_ASSOC);
     }
+
+    public function getByTeamId(int $idSelecao){
+        $sql = "SELECT * FROM tb_jogadores WHERE selecao = :idSelecao";
+
+        $table = $this->connection->prepare($sql);
+        $table->bindParam(":idSelecao", $idSelecao);
+
+        $table->execute();
+
+        return $table->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getByPosition(string $position){
+        $sql = "SELECT * FROM tb_jogadores WHERE posicao = :posicao";
+
+        $table = $this->connection->prepare($sql);
+        $table->bindParam(":posicao", $position);
+
+        $table->execute();
+
+        return $table->fetchAll(PDO::FETCH_ASSOC);
+    }
+
 }

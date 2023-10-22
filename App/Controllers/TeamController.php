@@ -49,7 +49,7 @@ class TeamController {
         $teamId = $params['id'];
 
         $data['team'] = $this->teamRepository->getById($teamId);
-        $data['players'] = $this->playerRepository->getById($teamId);
+        $data['players'] = $this->playerRepository->getByTeamId($teamId);
 
         return $this->container->view->render($response, 'team.php', $data);
     }
@@ -60,5 +60,25 @@ class TeamController {
 
         return $this->container->view->render($response, 'team.php', $data);
     }
+
+    public function getByGroup(Request $request, Response $response, array $params){
+
+        $teamGroup = $params['group'];
+
+        $data['group'] = $this->teamRepository->getByGroup($teamGroup);
+
+        return $this->container->view->render($response, 'Group.php', $data);
+    }
+
+    public function getByName(Request $request, Response $response, array $params){
+
+        $teamName = $params['name'];
+
+        $data['name'] = $this->teamRepository->getByName($teamName);
+
+        return $this->container->view->render($response, 'searchedTeam.php', $data);
+    }
+
+
 
 }

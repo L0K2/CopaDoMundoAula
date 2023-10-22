@@ -20,7 +20,7 @@
             <a class="navbar-brand" href="http://localhost:8080/">
                 <img src="http://localhost:8080/Public/images/logos/logo.webp" height="80px" width="auto" style="text-align: center;" alt="">
             </a>
-            
+
             <ul class="nav">
                 <li class="nav-item">
                   <a class="nav-link active" href="http://localhost:8080/">Home (aleatórios)</a>
@@ -38,21 +38,44 @@
 
         <h2 class="title">Album de IFigurinhas</h2>
         <h5 class="subtitle">Catar 2022</h5>
+
+        <h3 class="subtitle"> Seleção Aleatória</h3>
+
       
         <div class="card-container">
             <div id="players" class="listar-figurinhas row">
-                <?php foreach ($players as $player) : ?>
 
                 <div class="col-sm-6 col-md-4 col-lg-3">
 
-                    <div class="profile-card-6" style="background: <?= $team['cor'] ?>">
+                    <div class="profile-card-5"  style="background: <?= $players[0]['cor'] ?>; max-height: 400px;">
+
+                        <div class="row">
+                            <div class="col-5">
+                                <div class="profile-name"><?= $player[0]['selecao'] ?></div>
+                                <div class="profile-abrev"><?= $player[0]['abrev'] ?></div>
+
+                                <div class="profile-group">
+                                    <span>grupo </span> <?= $player[0]['grupo'] ?>
+                                </div>
+                            </div>
+                            <div class="col-7">
+                                <img src="http://localhost:8080/Public/images/emblem/<?= strtolower($player[0]['selecao'])?>.png" class="img img-responsive">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <?php foreach ($players as $player) : ?>
+                
+                <div class="col-sm-6 col-md-4 col-lg-3">
+
+                    <div class="profile-card-6" style="background: <?= $player['selecao']['cor'] ?>">
 
                         <?php
-                        if(!file_exists(__DIR__ . "/../../Public/images/players/{$team['selecao']}/{$player['nome']}.png")) {
+                        if(!file_exists(__DIR__ . "/../../Public/images/players/{$player['selecao']}/{$player['nome']}.png")) {
 
                             $path = "http://localhost:8080/Public/images/players/default.png";
                         } else {
-                            $path = "http://localhost:8080/Public/images/players/{$team['selecao']}/{$player['nome']}.png";
+                            $path = "http://localhost:8080/Public/images/players/{$player['selecao']}/{$player['nome']}.png";
                         }
                         ?>
 
